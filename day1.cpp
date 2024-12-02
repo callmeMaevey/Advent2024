@@ -1,0 +1,37 @@
+#include <algorithm>
+#include <iostream>
+#include <vector>
+#include <sstream>
+#include <string>
+#include <fstream>
+#include <list>
+
+
+using namespace std;
+
+int main() {
+    vector<int> listA;
+    vector<int> listB;
+
+    std::ifstream infile("day1.txt");
+
+    std::string line;
+    int a, b;
+    while (infile >> a >> b) {
+        listA.push_back(a);
+        listB.push_back(b);
+    }
+
+    sort(listA.begin(), listA.end());
+    sort(listB.begin(), listB.end());
+    int distance = 0;
+    int similarity = 0;
+    for (int i = 0; i < listA.size(); i++) {
+        distance += abs(listA[i]-listB[i]);
+        similarity += listA[i] * count(listB.begin(), listB.end(), listA[i] );
+    }
+    cout << "distance: " << distance << endl;
+    cout << "similarity: " << similarity << endl;
+    return 0;
+}
+

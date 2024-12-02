@@ -1,0 +1,4 @@
+
+*.txt
+/day1.dSYM/
+/.idea/
