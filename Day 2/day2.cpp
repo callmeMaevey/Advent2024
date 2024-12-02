@@ -54,6 +54,14 @@ bool is_safe(const vector<int>& readings) {
     return true;
 }
 
+bool is_safe_with_dampener (const vector<int> &readings) {
+    for (int i = 0; i < readings.size(); i++) {
+        vector readings_copy(readings.begin(), readings.end());
+        readings_copy.erase(readings_copy.begin()+i);
+        if (is_safe(readings_copy)) { return true; }
+    }
+    return false;
+}
 
 int main() {
     const vector< vector<int> > matrix = read_file("Day 2/day2.txt");
@@ -61,6 +69,13 @@ int main() {
     for (const auto& row : matrix) {
         if (is_safe(row)) { total_safes++; }
     }
-    cout << total_safes << endl;
+    cout << "total safe without dampener: " << total_safes << endl;
+
+    total_safes = 0;
+    for (const auto& row : matrix) {
+        if (is_safe_with_dampener(row)) { total_safes++; }
+    }
+    cout << "total safe with dampener: " << total_safes << endl;
+
     return 0;
 }
