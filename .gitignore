@@ -1,4 +1,5 @@
 
 *.txt
-/day1.dSYM/
+/Day 1/day1.dSYM/
 /.idea/
+/day2.dSYM/

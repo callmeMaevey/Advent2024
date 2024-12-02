@@ -4,7 +4,6 @@
 #include <sstream>
 #include <string>
 #include <fstream>
-#include <list>
 
 
 using namespace std;
@@ -13,9 +12,9 @@ int main() {
     vector<int> listA;
     vector<int> listB;
 
-    std::ifstream infile("day1.txt");
+    ifstream infile("Day 1/day1.txt");
 
-    std::string line;
+    string line;
     int a, b;
     while (infile >> a >> b) {
         listA.push_back(a);
