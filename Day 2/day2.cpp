@@ -56,7 +56,7 @@ bool is_safe(const vector<int>& readings) {
 int main() {
     const vector< vector<int> > matrix = read_file("Day 2/day2.txt");
     int total_safes = 0;
-    for (auto row : matrix) {
+    for (const auto& row : matrix) {
         if (is_safe(row)) { total_safes++; }
     }
     cout << total_safes << endl;
