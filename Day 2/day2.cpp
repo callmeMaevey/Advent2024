@@ -10,9 +10,10 @@
 
 using namespace std;
 vector< vector<int> > read_file( const string& fileName) {
-    vector< vector<int> > result ;
     ifstream file(fileName);
     if (!(file.is_open())) { throw runtime_error("Could not open file " + fileName); }
+
+    vector< vector<int> > result ;
 
     string line;
     while (getline(file, line)) {
@@ -52,6 +53,7 @@ bool is_safe(const vector<int>& readings) {
 
     return true;
 }
+
 
 int main() {
     const vector< vector<int> > matrix = read_file("Day 2/day2.txt");
