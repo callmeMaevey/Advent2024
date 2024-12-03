@@ -15,11 +15,8 @@ string read_file( const string& fileName) {
     if (!(file.is_open())) { throw runtime_error("Could not open file " + fileName); }
 
     string  result ;
-
     string line;
-    while (getline(file, line)) {
-        result += line + "\n";
-    }
+    while (getline(file, line)) { result += line + "\n"; }
     return result;
 }
 int part1_total(string file_contents) {
@@ -29,9 +26,7 @@ int part1_total(string file_contents) {
     std::regex mul_regex(R"(mul\([0-9]{1,3}\,[0-9]{1,3}\))");
     std::regex_token_iterator<std::string::iterator> a ( file_contents.begin(), file_contents.end(), mul_regex );
     vector<string> tokens;
-    while (a!=end) {
-        tokens.push_back(a++->str());
-    }
+    while (a!=end) { tokens.push_back(a++->str()); }
     int total = 0;
     for (auto token : tokens) {
         token.erase(token.begin(), token.begin()+4);
@@ -51,9 +46,7 @@ int part2_total(string file_contents) {
     std::regex mul_regex(R"(mul\([0-9]{1,3}\,[0-9]{1,3}\)|do\(\)|don't\(\))");
     std::regex_token_iterator<std::string::iterator> a ( file_contents.begin(), file_contents.end(), mul_regex );
     vector<string> tokens;
-    while (a!=end) {
-        tokens.push_back(a++->str());
-    }
+    while (a!=end) { tokens.push_back(a++->str()); }
     int total = 0;
     bool mul_enabled = true;
     for (auto token : tokens) {
@@ -73,7 +66,7 @@ int part2_total(string file_contents) {
 int main() {
     const string fileName = "Day 3/day3.txt";
 
-    std::string str = read_file(fileName);
+    const std::string str = read_file(fileName);
     cout << "total: " << part1_total(str) << endl;
     cout << "total part2: " << part2_total(str) << endl;
     return 0;
