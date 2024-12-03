@@ -29,10 +29,13 @@ int part1_total(string file_contents) {
     while (a!=end) { tokens.push_back(a++->str()); }
     int total = 0;
     for (auto token : tokens) {
-        token.erase(token.begin(), token.begin()+4);
-        token.erase(token.end()-1, token.end());
+        const size_t substring_start = token.find("(") + 1;
+        const unsigned long substring_length = token.size() - substring_start - 1;
+        //string manipulation
+        token = token.substr( substring_start , substring_length );
         token.replace(token.find(','),1,1,' ');
-        istringstream iss(token);
+        // output
+        istringstream iss(token) ;
         int x, y; iss >> x >> y;
         total += x*y;
     }
@@ -50,16 +53,15 @@ int part2_total(string file_contents) {
     int total = 0;
     bool mul_enabled = true;
     for (auto token : tokens) {
-        if (token == "do()") {  mul_enabled = true; continue;}
-        if (token == "don't()") {  mul_enabled = false; continue;}
-        if (mul_enabled) {
-            token.erase(token.begin(), token.begin()+4);
-            token.erase(token.end()-1, token.end());
-            token.replace(token.find(','),1,1,' ');
-            istringstream iss(token);
-            int x, y; iss >> x >> y;
-            total += x*y;
-        }
+        const size_t substring_start = token.find("(") + 1;
+        const unsigned long substring_length = token.size() - substring_start - 1;
+        //string manipulation
+        token = token.substr( substring_start , substring_length );
+        token.replace(token.find(','),1,1,' ');
+        // output
+        istringstream iss(token) ;
+        int x, y; iss >> x >> y;
+        total += x*y;
     }
     return total;
 }
