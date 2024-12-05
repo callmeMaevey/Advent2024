@@ -6,6 +6,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include <regex>
 using namespace std;
 
 vector< string > read_file( const string& fileName) {
@@ -18,15 +19,15 @@ vector< string > read_file( const string& fileName) {
 }
 
 void add_horizonals( vector<string>& lines, const vector<string>& file_lines) {
-    for (string line: file_lines) lines.push_back(line);
+    for (const string& line: file_lines) lines.push_back(line);
 }
 void add_verticals( vector<string>& lines, const vector<string>& file_lines) {
   for (int i=0; i < file_lines[0].size(); i++) {
-     string verical;
+     string vertical;
      for (string line: file_lines){
-         verical += line[i];
+         vertical += line[i];
      }
-     lines.push_back(verical);
+     lines.push_back(vertical);
   }
 }
 void add_diagonals_descending( vector<string>& lines, const vector<string>& file_lines) {
@@ -56,13 +57,17 @@ void add_diagonals_ascending( vector<string>& lines, const vector<string>& file_
     }
 }
 
-int count_occurances( vector<string>& lines) {
+int count_occurrences( vector<string>& lines) {
     int total = 0;
     for (string line: lines) {
-
-     // count each occurance of "XMAS" and "SAMX" in each line
+        const regex xmas_regex(R"(XMAS|SAMX)");
+        regex_token_iterator regex_iterator ( line.begin(), line.end(), xmas_regex );
+        regex_token_iterator<string::iterator> end; // default constructor = end-of-sequence:
+        while (regex_iterator!=end) {
+            ++regex_iterator;
+            total++;
+        }
     }
-
     return total;
 }
 
@@ -74,10 +79,7 @@ int main() {
     add_verticals(all_lines, contents);
     add_diagonals_descending(all_lines, contents);
     add_diagonals_ascending(all_lines, contents);
-
-    for (const string& line: all_lines) cout << line.size() << endl;
-
-
-
+    cout << "counting occurrences" << endl;
+    cout << count_occurrences(all_lines) << endl;
     return 0;
 }
