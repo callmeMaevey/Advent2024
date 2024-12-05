@@ -60,11 +60,17 @@ void add_diagonals_ascending( vector<string>& lines, const vector<string>& file_
 int count_occurrences( vector<string>& lines) {
     int total = 0;
     for (string line: lines) {
-        const regex xmas_regex(R"(XMAS|SAMX)");
-        regex_token_iterator regex_iterator ( line.begin(), line.end(), xmas_regex );
-        regex_token_iterator<string::iterator> end; // default constructor = end-of-sequence:
-        while (regex_iterator!=end) {
-            ++regex_iterator;
+        regex_token_iterator<string::iterator> end;
+        const regex xmas_regex(R"(XMAS)");
+        const regex samx_regex(R"(SAMX)");
+        regex_token_iterator regex_iterator_xmas ( line.begin(), line.end(), xmas_regex );
+        regex_token_iterator regex_iterator_samx ( line.begin(), line.end(), samx_regex );
+        while (regex_iterator_xmas!=end) {
+            ++regex_iterator_xmas;
+            total++;
+        }
+        while (regex_iterator_samx!=end) {
+            ++regex_iterator_samx;
             total++;
         }
     }
